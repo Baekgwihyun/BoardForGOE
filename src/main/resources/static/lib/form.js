@@ -19,3 +19,4 @@ favDialog.addEventListener('close', function onClose() {
     outputBox.value = favDialog.returnValue + " button clicked - "
     outputBox.value = favDialog.returnValue + " button clicked - "
 });
+

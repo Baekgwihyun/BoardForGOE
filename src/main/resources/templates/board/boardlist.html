@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>경기도교육청 문의 게시판</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
-            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" th:href="@{https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css}"/>
-    <script th:inline="javascript" type="text/javascript" th:src="@{https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js}"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css"/>
+    <script th:inline="javascript" type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -17,27 +15,56 @@
 
 </head>
 <body>
-<table id="example" class="display" style="width:100%">
-    <thead>
-    <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>날짜</th>
-        <th>작성자</th>
 
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>1</td>
-        <td>메신저 실행 물가 문의</td>
-        <td>2022-07-07</td>
-        <td>백귀현</td>
+<div class="container">
+    <h2>게시판</h2>
+    <div>총 건수 : <span th:text="${boards.totalElements}"></span></div>
+    <form class="form-inline d-flex justify-content-end" method="GET" th:action="@{/board/list}">
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="searchText" class="sr-only">검색</label>
+            <input type="text" class="form-control" id="searchText" name="searchText"
+                   th:value="${param.searchText}">
+        </div>
+        <button type="submit" class="btn btn-light mb-2">검색</button>
+    </form>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>날짜</th>
+            <th>작성자</th>=
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="board : ${boards}">
+            <td th:text="${board.id}">Mark</td>
+            <td><a th:text="${board.goe_title}" th:href="@{/board/form(id=${board.id})}">Otto</a></td>
+<!--            <td th:text="${board.user.username}"></td>-->
+        </tr>
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${1 == boards.pageable.pageNumber + 1} ? 'disabled'">
+                <a class="page-link" href="#"
+                   th:href="@{/board/list(page=${boards.pageable.pageNumber - 1},searchText=${param.searchText})}"
+                   tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+            <li class="page-item" th:classappend="${i == boards.pageable.pageNumber + 1} ? 'disabled'" th:each="i : ${#numbers.sequence(startPage, endPage)}">
+                <a class="page-link" href="#" th:href="@{/board/list(page=${i - 1},searchText=${param.searchText})}" th:text="${i}">1</a>
+            </li>
+            <li class="page-item" th:classappend="${boards.totalPages == boards.pageable.pageNumber + 1} ? 'disabled'">
+                <a class="page-link" href="#" th:href="@{/board/list(page=${boards.pageable.pageNumber + 1},searchText=${param.searchText})}">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
 
 
-    </tr>
-    </tbody>
-</table>
+
+
+
 <button id="updateDetails">문의 등록</button>
 <!--게시글 등록 form start-->
 <dialog id="favDialog">
