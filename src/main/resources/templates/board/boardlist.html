@@ -2,12 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>경기도교육청 문의</title>
+    <title>경기도교육청 문의 게시판</title>
     <script src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" th:href="@{https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css}"/>
-    <script th:inline="javascript" type="text/javascript"
-            th:src="@{https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js}"></script>
+    <script th:inline="javascript" type="text/javascript" th:src="@{https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js}"></script>
 
 
     <script>
@@ -39,8 +38,8 @@
     </tr>
     </tbody>
 </table>
-
-<!---->
+<button id="updateDetails">문의 등록</button>
+<!--게시글 등록 form start-->
 <dialog id="favDialog">
     <form method="#" th:action="@{#}">
         <table>
@@ -81,8 +80,8 @@
         <button type="submit" id="confirmBtn" value="default">확인</button>
     </form>
 </dialog>
+<!--게시글 등록 form end-->
 
-<button id="updateDetails">문의 등록</button>
 
 </body>
 <script th:src="@{/lib/form.js}"></script>
