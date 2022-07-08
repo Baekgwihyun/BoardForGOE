@@ -1,6 +1,6 @@
 var updateButton = document.getElementById('updateDetails');
 var favDialog = document.getElementById('favDialog');
-var outputBox = document.getElementsByTagName('output')[0];
+//var outputBox = document.getElementsByTagName('output')[0];
 var selectEl = document.getElementsByTagName('select')[0];
 var confirmBtn = document.getElementById('confirmBtn');
 
