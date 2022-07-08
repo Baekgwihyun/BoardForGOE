@@ -2,41 +2,87 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>경기도교육청 Help</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <title>경기도교육청 문의</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" th:href="@{https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css}"/>
-    <script th:inline="javascript" type="text/javascript" th:src="@{https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js}"></script>
+    <script th:inline="javascript" type="text/javascript"
+            th:src="@{https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js}"></script>
 
 
     <script>
-        $(document).ready( function () {
+        $(document).ready(function () {
             $('#example').DataTable();
-        } )
+        })
     </script>
 
 </head>
 <body>
 <table id="example" class="display" style="width:100%">
-<thead>
-<tr>
-    <th>번호</th>
-    <th>제목</th>
-    <th>날짜</th>
-    <th>작성자</th>
+    <thead>
+    <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>날짜</th>
+        <th>작성자</th>
 
-</tr>
-</thead>
-<tbody>
-<tr>
-    <td>1</td>
-    <td>메신저 실행 물가 문의</td>
-    <td>2022-07-07</td>
-    <td>백귀현</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>메신저 실행 물가 문의</td>
+        <td>2022-07-07</td>
+        <td>백귀현</td>
 
 
-</tr>
-</tbody>
+    </tr>
+    </tbody>
 </table>
 
+<!---->
+<dialog id="favDialog">
+    <form method="#" th:action="@{#}">
+        <table>
+            <tr>
+                <th scope="row"><label for="wr_subject">제목</label></th>
+                <td><input type="text" id="wr_subject" name="wr_subject" class="long" required=""></td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="wr_name">문의자</label></th>
+                <td><input type="text" id="wr_name" name="wr_name" required="" class="shot"></td>
+                <th scope="row"><label for="school_name">소속학교</label></th>
+                <td><input type="text" id="school_name" name="school_name" required="" class="shot"></td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="hp1">연락처</label>
+                </th>
+                <td class="ph">
+                    <select name="hp1" id="hp1">
+                        <option value="010">010</option>
+                        <option value="011">011</option>
+                        <option value="016">016</option>
+                        <option value="017">017</option>
+                    </select> <span class="dash">-</span>
+                    <input type="text" name="hp2" class="number" id="hp2" required="" maxlength="4"> <span class="dash">-</span>
+                    <input type="text" name="hp3" class="number" id="hp3" required="" maxlength="4">
+                    <input type="hidden" name="wr_1" class="wr_1" required="">
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="as_content">문의내용</label></th>
+                <td>
+                    <textarea name="as_content" id="as_content" cols="40" rows="20" required=""></textarea>
+                </td>
+            </tr>
+        </table>
+        <button value="cancel">취소</button>
+        <button type="submit" id="confirmBtn" value="default">확인</button>
+    </form>
+</dialog>
+<button id="updateDetails">문의 등록</button>
+<output aria-live="polite"></output>
 </body>
+<script th:src="@{/lib/form.js}"></script>
 </html>
