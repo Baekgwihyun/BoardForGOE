@@ -1,74 +1,68 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>경기도교육청 문의 게시판</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css"/>
-    <script th:inline="javascript" type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('#example').DataTable();
-        })
-    </script>
-
 </head>
 <body>
-
 <div class="container">
-    <h2>게시판</h2>
-    <div>총 건수 : <span th:text="${boards.totalElements}"></span></div>
-    <form class="form-inline d-flex justify-content-end" method="GET" th:action="@{/board/list}">
-        <div class="form-group mx-sm-3 mb-2">
-            <label for="searchText" class="sr-only">검색</label>
-            <input type="text" class="form-control" id="searchText" name="searchText"
-                   th:value="${param.searchText}">
-        </div>
-        <button type="submit" class="btn btn-light mb-2">검색</button>
-    </form>
+    <h2>경기도교육청 문의</h2>
+    <div>총 건수 : <span th:text="${#lists.size(boards)}"></span></div>
     <table class="table table-striped">
         <thead>
         <tr>
             <th>번호</th>
             <th>제목</th>
-            <th>날짜</th>
-            <th>작성자</th>=
+            <th>등록날짜</th>
+            <th>작성자</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="board : ${boards}">
-            <td th:text="${board.id}">Mark</td>
-            <td><a th:text="${board.goe_title}" th:href="@{/board/form(id=${board.id})}">Otto</a></td>
-<!--            <td th:text="${board.user.username}"></td>-->
+       <tr th:each="board : ${boards}" >
+<!--       <tr th:each="board, loop : ${paging}">-->
+            <td th:text="${board.id}" >번호</td>
+            <td th:text="${board.goe_title}">제목</td>
+            <td th:text="${board.goe_help_date}">등록날짜</td>
+            <td >백귀현</td>
         </tr>
-        </tbody>
     </table>
-    <nav aria-label="Page navigation example">
+
+    <!-- 페이징처리 시작 -->
+    <!--<div th:if="${!paging.isEmpty()}">
         <ul class="pagination justify-content-center">
-            <li class="page-item" th:classappend="${1 == boards.pageable.pageNumber + 1} ? 'disabled'">
-                <a class="page-link" href="#"
-                   th:href="@{/board/list(page=${boards.pageable.pageNumber - 1},searchText=${param.searchText})}"
-                   tabindex="-1" aria-disabled="true">Previous</a>
+            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{|?page=${paging.number-1}|}">
+                    <span>이전</span>
+                </a>
             </li>
-            <li class="page-item" th:classappend="${i == boards.pageable.pageNumber + 1} ? 'disabled'" th:each="i : ${#numbers.sequence(startPage, endPage)}">
-                <a class="page-link" href="#" th:href="@{/board/list(page=${i - 1},searchText=${param.searchText})}" th:text="${i}">1</a>
+            <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+                th:classappend="${page == paging.number} ? 'active'"
+                class="page-item">
+                <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
             </li>
-            <li class="page-item" th:classappend="${boards.totalPages == boards.pageable.pageNumber + 1} ? 'disabled'">
-                <a class="page-link" href="#" th:href="@{/board/list(page=${boards.pageable.pageNumber + 1},searchText=${param.searchText})}">Next</a>
+            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                    <span>다음</span>
+                </a>
             </li>
         </ul>
-    </nav>
+    </div>
+    --><!-- 페이징처리 끝 -->
+
+
+
+
+
+    <div class="text-right">
+        <button type="button" class="btn btn-primary" id="updateDetails">문의 등록</button>
+    </div>
 </div>
-
-
-
-
-
-<button id="updateDetails">문의 등록</button>
-<!--게시글 등록 form start-->
 <dialog id="favDialog">
-    <form method="#" th:action="@{#}">
+    <form method="post" th:action="@{/board/form}">
         <table>
             <tr>
                 <th scope="row"><label for="wr_subject">제목</label></th>
@@ -107,9 +101,9 @@
         <button type="submit" id="confirmBtn" value="default">확인</button>
     </form>
 </dialog>
-<!--게시글 등록 form end-->
+
 
 
 </body>
-<script th:src="@{/lib/form.js}"></script>
+<script th:src="@{/lib/form.js}" ></script>
 </html>

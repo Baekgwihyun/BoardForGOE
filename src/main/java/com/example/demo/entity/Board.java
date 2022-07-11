@@ -3,8 +3,11 @@ package com.example.demo.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+
 @Data
 @Entity
+@Table(name = "BOARDFORGOE")
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,5 +20,6 @@ public class Board {
 
     private String goe_school_name;
     private String goe_help_content;
-    private String help_insert_date;
+    private LocalDateTime goe_help_date;
+
 }

@@ -1,10 +1,116 @@
+<!--
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>경기도교육청 문의 게시판</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css"/>
+    <script th:inline="javascript" type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        })
+    </script>
+
 </head>
 <body>
-<P>가나다라마바사</P>
+
+<div class="container">
+    <h2>게시판</h2>
+    <div>총 건수 : <span th:text="${boards.totalElements}"></span></div>
+    <form class="form-inline d-flex justify-content-end" method="GET" th:action="@{/board/list}">
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="searchText" class="sr-only">검색</label>
+            <input type="text" class="form-control" id="searchText" name="searchText"
+                   th:value="${param.searchText}">
+        </div>
+        <button type="submit" class="btn btn-light mb-2">검색</button>
+    </form>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>날짜</th>
+            <th>작성자</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="board : ${boards}">
+            <td th:text="${board.id}">Mark</td>
+            <td><a th:text="${board.goe_title}" th:href="@{/board/form(id=${board.id})}">Otto</a></td>
+            &lt;!&ndash;            <td th:text="${board.user.username}"></td>&ndash;&gt;
+        </tr>
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${1 == boards.pageable.pageNumber + 1} ? 'disabled'">
+                <a class="page-link" href="#"
+                   th:href="@{/board/list(page=${boards.pageable.pageNumber - 1},searchText=${param.searchText})}"
+                   tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+            <li class="page-item" th:classappend="${i == boards.pageable.pageNumber + 1} ? 'disabled'" th:each="i : ${#numbers.sequence(startPage, endPage)}">
+                <a class="page-link" href="#" th:href="@{/board/list(page=${i - 1},searchText=${param.searchText})}" th:text="${i}">1</a>
+            </li>
+            <li class="page-item" th:classappend="${boards.totalPages == boards.pageable.pageNumber + 1} ? 'disabled'">
+                <a class="page-link" href="#" th:href="@{/board/list(page=${boards.pageable.pageNumber + 1},searchText=${param.searchText})}">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+
+
+
+<button id="updateDetails">문의 등록</button>
+&lt;!&ndash;게시글 등록 form start&ndash;&gt;
+<dialog id="favDialog">
+    <form method="post" th:action="/board/boardlist">
+        <table>
+            <tr>
+                <th scope="row"><label for="wr_subject">제목</label></th>
+                <td><input type="text" id="wr_subject" name="wr_subject" class="long" required=""></td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="wr_name">문의자</label></th>
+                <td><input type="text" id="wr_name" name="wr_name" required="" class="shot"></td>
+                <th scope="row"><label for="school_name">소속학교</label></th>
+                <td><input type="text" id="school_name" name="school_name" required="" class="shot"></td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="hp1">연락처</label>
+                </th>
+                <td class="ph">
+                    <select name="hp1" id="hp1">
+                        <option value="010">010</option>
+                        <option value="011">011</option>
+                        <option value="016">016</option>
+                        <option value="017">017</option>
+                    </select> <span class="dash">-</span>
+                    <input type="text" name="hp2" class="number" id="hp2" required="" maxlength="4"> <span class="dash">-</span>
+                    <input type="text" name="hp3" class="number" id="hp3" required="" maxlength="4">
+                    <input type="hidden" name="wr_1" class="wr_1" required="">
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="as_content">문의내용</label></th>
+                <td>
+                    <textarea name="as_content" id="as_content" cols="40" rows="20" required=""></textarea>
+                </td>
+            </tr>
+        </table>
+        <button value="cancel">취소</button>
+        <button type="submit" id="confirmBtn" value="default">확인</button>
+    </form>
+</dialog>
+&lt;!&ndash;게시글 등록 form end&ndash;&gt;
+
+
 </body>
-</html>
+<script th:src="@{/lib/form.js}"></script>
+</html>-->

@@ -8,12 +8,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
+
 
 @Slf4j
 @Controller
@@ -26,31 +31,38 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
+  /*  @GetMapping("/list")
+    public String list(Model model, @PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Board> list = boardRepository.findAll(pageable);
+        List<Board> boards = boardRepository.findAll();
+        int nowPage = pageable.getPageNumber() + 1;
+        int startPage = Math.max(nowPage - 4, 1);
+        int nextPage = Math.min(nowPage + 5, list.getTotalPages());
+        int endPage = Math.max(nowPage, list.getTotalPages());
 
-
-    @GetMapping("/list")
-    public String BoardList (Model model, @PageableDefault(size = 5) Pageable pageable,
-                             @RequestParam(required = false, defaultValue = "") String searchText){
- Page<Board> boards = boardRepository.findByTitleContaining(searchText,pageable);
-
-        int startPage = Math.max(1,boards.getPageable().getPageNumber() -4);
-        int endPage = Math.min(boards.getTotalPages(),boards.getPageable().getPageNumber() +4);
-
+        model.addAttribute("list", boards);
+        model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);
+        model.addAttribute("nextPage", nextPage);
         model.addAttribute("endPage", endPage);
-        model.addAttribute("boards", boards);
-        System.out.println(boards);
-        System.out.println(startPage);
-        System.out.println(endPage);
-
-
+        log.debug("boardlist{}" + list);
         return "/board/boardlist";
+
+    }*/
+    @GetMapping("/list")
+    public String list(Model model,Pageable pageable) {
+        List<Board> boards = boardRepository.findAll();
+        model.addAttribute("boards", boards);
+        model.addAttribute("pageable",pageable);
+        return "board/boardlist";
     }
 
-        @GetMapping("/form")
+
+
+        @PostMapping("/form")
         public String boardForm(){
 
-            return "/board/boardform";
+            return "/board/boardlist";
 
     }
 

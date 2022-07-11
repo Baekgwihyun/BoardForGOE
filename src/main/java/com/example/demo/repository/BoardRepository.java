@@ -8,7 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface BoardRepository extends JpaRepository <Board, Long>{
-    List<Board> findByTitle(String goe_title);
-    Page<Board> findByTitleContaining(String searchKeyword, Pageable pageable);
+
+
 }
