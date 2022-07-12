@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 @Table(name = "BOARDFORGOE")
 public class Board {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String goe_user_name;
@@ -21,5 +22,7 @@ public class Board {
     private String goe_school_name;
     private String goe_help_content;
     private LocalDateTime goe_help_date;
+
+
 
 }
