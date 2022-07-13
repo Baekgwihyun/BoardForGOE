@@ -11,9 +11,9 @@ import java.sql.SQLOutput;
 import java.util.List;
 
 public interface BoardRepository extends JpaRepository <Board, Long>{
-    //List<Board> findByGoe_title(String goe_title);
-    //List<Board> findByGoe_titleOrOrGoe_help_content(String goe_title, String goe_help_content);
+    //Board findByGoeTitle(String goeTitle);
 
-   // Page<Board> findByGoe_titleOrOrGoe_help_content(String goe_title, String goe_help_content, Pageable pageable);
+    //Page<Board> findAll(Pageable pageable);
+
 
 }

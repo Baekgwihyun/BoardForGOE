@@ -4,11 +4,10 @@ import com.example.demo.entity.Board;
 import com.example.demo.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.jni.Local;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -21,7 +20,7 @@ public class BoardService {
         return this.boardRepository.findAll();
     }
 
-    public void list(String goe_user_name, String goe_user_phone ,String goe_title , String goe_school_name,String goe_help_content) {
+    public void list(String goe_user_name, String goe_user_phone, String goe_title, String goe_school_name, String goe_help_content) {
         Board board = new Board();
         board.setGoe_user_name(goe_user_name);
         board.setGoe_user_phone(goe_user_phone);
@@ -29,9 +28,34 @@ public class BoardService {
         board.setGoe_school_name(goe_school_name);
         board.setGoe_help_content(goe_help_content);
         board.setGoe_help_date(LocalDateTime.now());
-        log.debug("boards{}"+ board );
+        log.debug("boards{}" + board);
         this.boardRepository.save(board);
     }
 
+    public Board getBoard(Long id) {
+        Optional<Board> question = this.boardRepository.findById(id);
+        if (question.isPresent()) {
+            return question.get();
+        } else {
+            throw new DataNotFoundException("question not found");
+        }
+    }
 
 }
+    /*public void list(String goeUserName, String goeUserPhone ,String goeTitle
+            , String goeSchoolName,String goeHelpContent) {
+        Board board = new Board();
+        board.setGoeUserName(goeUserName);
+        board.setGoeUserPhone(goeUserPhone);
+        board.setGoeTitle(goeTitle);
+        board.setGoeSchoolName(goeSchoolName);
+        board.setGoeHelpContent(goeHelpContent);
+        board.setGoeHelpDate(LocalDateTime.now());
+        log.debug("boards{}"+ board );
+        this.boardRepository.save(board);
+    }*/
+
+
+
+
+

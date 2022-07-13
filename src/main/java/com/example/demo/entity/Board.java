@@ -23,6 +23,19 @@ public class Board {
     private String goe_help_content;
     private LocalDateTime goe_help_date;
 
-
-
 }
+
+//    private Long id;
+//
+//    private String goeUserName;
+//    private String goeUserPhone;
+//
+//    private String goeTitle;
+//
+//    private String goeSchoolName;
+//    private String goeHelpContent;
+//    private LocalDateTime goeHelpDate;
+//
+//
+//
+//}
