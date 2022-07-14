@@ -8,6 +8,7 @@ import com.example.demo.validator.BoardValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,16 +37,32 @@ public class BoardController {
 
 
 
-    @RequestMapping("/list")
+   /* @RequestMapping("/list")
     public String list(Model model) {
-        List<Board> boards = this.boardService.getList();
+        List<Board> boards = boardRepository.findAll();
         model.addAttribute("boards", boards);
 
         log.debug("boards{}"+ boards );
         return "board/boardlist";
+    }*/
+
+
+    @RequestMapping("/list")
+    public String list(Model model, @RequestParam(value="page", defaultValue="0") int page) {
+        Page<Board> paging = this.boardService.getList(page);
+        model.addAttribute("paging", paging);
+        List<Board> boards = boardRepository.findAll();
+        model.addAttribute("boards", boards);
+
+        System.out.println("paging"+paging);
+        log.debug("boards{}" + paging);
+        return "board/boardlist";
+
+
     }
 
 
+    // 게시글 작성
     @PostMapping("/form")
     public String questionCreate(
             @RequestParam String goe_user_name,  String goe_user_phone,
@@ -58,7 +75,8 @@ public class BoardController {
 
 
     // 게시판 상세
-    @RequestMapping(value = "/board/boardview/{id}")
+    //@RequestMapping(value = "/board/boardview/{id}")
+    @RequestMapping(value = "/board/{id}")
     public String boardView(Model model, @PathVariable("id") Long id) {
         Board board = this.boardService.getBoard(id);
         model.addAttribute("board", board);

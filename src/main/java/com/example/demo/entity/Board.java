@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "BOARDFORGOE")
 public class Board {
-    @Id
+    /*@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -23,19 +23,24 @@ public class Board {
     private String goe_help_content;
     private LocalDateTime goe_help_date;
 
-}
+}*/
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-//    private Long id;
-//
-//    private String goeUserName;
-//    private String goeUserPhone;
-//
-//    private String goeTitle;
-//
-//    private String goeSchoolName;
-//    private String goeHelpContent;
-//    private LocalDateTime goeHelpDate;
-//
-//
-//
-//}
+    @Column(name = "GOE_USER_NAME")
+    private String goeUserName;
+    @Column(name = "GOE_USER_PHONE")
+    private String goeUserPhone;
+    @Column(name = "GOE_TITLE")
+    private String goeTitle;
+    @Column(name = "GOE_SCHOOL_NAME")
+    private String goeSchoolName;
+    @Column(name = "GOE_HELP_CONTENT")
+    private String goeHelpContent;
+    @Column(name = "GOE_HELP_DATE")
+    private LocalDateTime goeHelpDate;
+
+
+
+}

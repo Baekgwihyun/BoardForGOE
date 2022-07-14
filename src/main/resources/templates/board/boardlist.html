@@ -21,40 +21,38 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="board : ${boards}" >
-            <!--       <tr th:each="board, loop : ${paging}">-->
+<!--       <tr th:each="board : ${boards}" >-->
+                  <tr th:each="board, loop : ${paging}">
             <td th:text="${board.id}">번호</td>
-            <td> <a th:text="${board.goe_title}"th:href="@{/board/boardview(id=${board.id})}" >제목</a></td>
-            <td th:text="${board.goe_help_date}">등록날짜</td>
+            <td> <a th:text="${board.goeTitle}"th:href="@{/board(id=${board.id})}" >제목</a></td>
+            <td th:text="${board.goeHelpDate}">등록날짜</td>
             <td >백귀현</td>
         </tr>
     </table>
-
-
-<!--       <tr th:each="board, loop : ${paging}">-->
-<!--           <td><a th:href="@{|/board/boardview${board.id}|}"  th:text="${board.id}"> 번호</a></td>-->
-<!--            <td>  <a th:href="@{/board/boardview}" th:text="${board.goe_title}">제목</a></td>-->
-<!--           <td> <a th:href="@{|/board/boardview}"th:text="${board.goe_help_date}">등록날짜</a></td>-->
-<!--           <td>백귀현</td>-->
-<!--        </tr>-->
-<!--    </table>-->
     <!-- 페이징처리 시작 -->
-   <!-- <nav aria-label="Page navigation example">
+    <div th:if="${!paging.isEmpty()}">
         <ul class="pagination justify-content-center">
-            <li class="page-item" th:classappend="${1 == boards.pageable.pageNumber + 1} ? 'disabled'">
-                <a class="page-link" href="#"
-                   th:href="@{/board/list(page=${boards.pageable.pageNumber - 1},searchText=${param.searchText})}"
-                   tabindex="-1" aria-disabled="true">Previous</a>
+            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{|?page=${paging.number-1}|}">
+                    <span>이전</span>
+                </a>
             </li>
-            <li class="page-item" th:classappend="${i == boards.pageable.pageNumber + 1} ? 'disabled'" th:each="i : ${#numbers.sequence(startPage, endPage)}">
-                <a class="page-link" href="#" th:href="@{/board/list(page=${i - 1},searchText=${param.searchText})}" th:text="${i}">1</a>
+            <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+                th:classappend="${page == paging.number} ? 'active'"
+                class="page-item">
+                <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
             </li>
-            <li class="page-item" th:classappend="${boards.totalPages == boards.pageable.pageNumber + 1} ? 'disabled'">
-                <a class="page-link" href="#" th:href="@{/board/list(page=${boards.pageable.pageNumber + 1},searchText=${param.searchText})}">Next</a>
+            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                    <span>다음</span>
+                </a>
             </li>
         </ul>
-    </nav>-->
+    </div>
     <!-- 페이징처리 끝 -->
+
+
 
 
 

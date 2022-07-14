@@ -16,7 +16,7 @@ public class BoardValidator implements Validator { // 스프링 부트 유효성
     @Override
     public void validate(Object obj, Errors errors) {
         Board b = (Board) obj;
-        if (StringUtils.isEmpty(b.getGoe_help_content())) {
+        if (StringUtils.isEmpty(b.getGoeHelpContent())) {
             errors.rejectValue("content", "key", "내용을 입력하세요");
         }
     }
