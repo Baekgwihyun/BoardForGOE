@@ -4,48 +4,81 @@
     <meta charset="UTF-8">
     <title>경기도교육청 문의 상세보기</title>
 </head>
-<body>
-</dialog>
-        <table>
-            <tr>
-                <th scope="row"><label for="goe_title">제목</label></th>
-                <td><input type="text" id="goe_title" name="goe_title" class="long" th:text="${board.goe_title}"required=""></td>
-            </tr>
-            <tr>
-                <th scope="row"><label for="goe_user_name">문의자</label></th>
-                <td><input th:text="${board.goe_title}" type="text" id="goe_user_name" name="goe_user_name" required="" class="shot"></td>
-                <th scope="row"><label for="goe_school_name">소속학교</label></th>
-                <td><input type="text" id="goe_school_name" name="goe_school_name" required="" class="shot"></td>
-            </tr>
-            <tr>
-                <th scope="row">
-                    <label for="goe_user_phone">연락처</label>
-                </th>
-                <td class="ph">
-                    <select name="goe_user_phone" id="goe_user_phone">
-                        <option value="010">010</option>
-                        <option value="011">011</option>
-                        <option value="016">016</option>
-                        <option value="017">017</option>
-                    </select> <span class="dash">-</span>
-                    <input type="text" name="goe_user_phone" class="number" id="hp2" required="" maxlength="4"> <span class="dash">-</span>
-                    <input type="text" name="goe_user_phone" class="number" id="hp3" required="" maxlength="4">
-                    <input type="hidden" name="wr_1" class="wr_1" required="">
-                </td>
-            </tr>
-            <tr>
-                <th scope="row"><label for="goe_help_content">문의내용</label></th>
-                <td>
-                    <textarea name="goe_help_content" id="goe_help_content" cols="40" rows="20" required=""></textarea>
-                </td>
-            </tr>
-        </table>
-        <button type="button" value="cancel">취소</button>
-        <button type="submit" id="confirmBtn" value="default">확인</button>
-</dialog>
+<script>
+    /*<![CDATA[*/
+    var test = /*[[ ${boards} ]]*/
+        /*]]*/
 
+        console.log(test);
+    //id.getDocuMentById("test").innerhtml()
+</script>
+<body>
+<h1 id="test">문의 내용</h1>
+
+
+제목 :<div th:text="${board.goeTitle}"></div>
+문의자 :<div th:text="${board.goeUserName}"></div>
+문의자 연락처 :<div th:text="${board.goeUserPhone}"></div>
+문의 내용 :<div th:text="${board.goeHelpContent}"></div>
+
+<form th:action="@{|/answer/create/${question.id}|}" method="post">
+    <textarea name="content" id="content" rows="15"></textarea>
+    <input type="submit" value="답변등록">
+</form>
+
+<a th:href="@{/board/list}"><button type="button" value="cancel">목록</button> </a>
+
+
+<!--<dialog>-->
+<!--    <td><a th:field="*{goeTitle}" th:href="@{/board/form(id=${board.id})}">제목</a></td>-->
+<!--    &ndash;&gt;-->
+
+<!--    <table>-->
+<!--        <tr th:each="board : ${boards}">-->
+<!--            <th scope="row"><label for="goe_title">제목</label></th>-->
+<!--            <td><input th:field="${board.goe_title{id}}" type="text" id="goe_title" name="goe_title" class="long"-->
+<!--                       required=""></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <th scope="row"><label for="goe_user_name">문의자</label></th>-->
+<!--            <td><input th:text="${board.goe_title}" type="text" id="goe_user_name" name="goe_user_name" required=""-->
+<!--                       class="shot"></td>-->
+<!--            <th scope="row"><label for="goe_school_name">소속학교</label></th>-->
+<!--            <td><input th:text="board.goe_school_name" type="text" id="goe_school_name" name="goe_school_name"-->
+<!--                       required="" class="shot"></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <th scope="row">-->
+<!--                <label for="goe_user_phone">연락처</label>-->
+<!--            </th>-->
+<!--            <td class="ph">-->
+<!--                <select name="goe_user_phone" id="goe_user_phone">-->
+<!--                    <option value="010">010</option>-->
+<!--                    <option value="011">011</option>-->
+<!--                    <option value="016">016</option>-->
+<!--                    <option value="017">017</option>-->
+<!--                </select> <span class="dash">-</span>-->
+<!--                <input type="text" name="goe_user_phone" class="number" id="hp2" required="" maxlength="4"> <span-->
+<!--                    class="dash">-</span>-->
+<!--                <input type="text" name="goe_user_phone" class="number" id="hp3" required="" maxlength="4">-->
+<!--                <input type="hidden" name="wr_1" class="wr_1" required="">-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <th scope="row"><label for="goe_help_content">문의내용</label></th>-->
+<!--            <td>-->
+<!--                <textarea name="goe_help_content" id="goe_help_content" cols="40" rows="20" required=""></textarea>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        </tr>-->
+
+<!--    </table>-->
+<!--    <button type="button" value="cancel">취소</button>-->
+<!--    <button type="submit" id="confirmBtn" value="default">확인</button>-->
+<!--</dialog>-->
 
 
 </body>
-<script th:src="@{/lib/form.js}" ></script>
+<!--<script th:src="@{/lib/form.js}" ></script>-->
 </html>
+

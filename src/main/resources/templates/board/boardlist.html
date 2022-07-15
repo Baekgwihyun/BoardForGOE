@@ -22,9 +22,11 @@
         </thead>
         <tbody>
 <!--       <tr th:each="board : ${boards}" >-->
-                  <tr th:each="board, loop : ${paging}">
-            <td th:text="${board.id}">번호</td>
-            <td> <a th:text="${board.goeTitle}"th:href="@{/board(id=${board.id})}" >제목</a></td>
+        <tr th:each="board, loop : ${paging}">
+           <td th:text="${board.id}">번호</td>
+           <td> <a th:text="${board.goeTitle}"th:href="@{|/board/boardview/${board.id}|}" >제목</a></td>
+
+
             <td th:text="${board.goeHelpDate}">등록날짜</td>
             <td >백귀현</td>
         </tr>

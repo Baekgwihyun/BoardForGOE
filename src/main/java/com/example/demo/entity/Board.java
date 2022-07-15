@@ -26,7 +26,7 @@ public class Board {
 }*/
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
 
     @Column(name = "GOE_USER_NAME")
     private String goeUserName;

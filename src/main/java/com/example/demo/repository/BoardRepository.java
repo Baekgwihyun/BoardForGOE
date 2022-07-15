@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.converter.json.GsonBuilderUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository <Board, Long>{
   Board findByGoeHelpContent(String goe_help_content);
@@ -14,4 +15,5 @@ public interface BoardRepository extends JpaRepository <Board, Long>{
     List<Board> findByGoeTitle(String goe_title);
     Page<Board> findAll(Pageable pageable);
 
+  Optional<Board> findById(Integer id);
 }

@@ -11,10 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -76,9 +73,19 @@ public class BoardController {
 
     // 게시판 상세
     //@RequestMapping(value = "/board/boardview/{id}")
-    @RequestMapping(value = "/board/{id}")
-    public String boardView(Model model, @PathVariable("id") Long id) {
-        Board board = this.boardService.getBoard(id);
+    /*@GetMapping(value = "/board/boardview/{id}")
+    public String boardView(Model model, @RequestParam Long id) {
+        log.debug(id.toString());
+        //Board board = this.boardService.getBoard(id);
+        //model.addAttribute("board", board);
+        return "board/boardview";
+    }*/
+
+    @RequestMapping(value = "/boardview/{id}")
+    public String boardView(Model model, @PathVariable("id") Integer id) {
+       // log.debug(id.toString());
+        Board board = boardService.getBoard(id);
+        //log.debug("[Board] Title : "+board.getGoeTitle());
         model.addAttribute("board", board);
         return "board/boardview";
     }

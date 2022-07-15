@@ -42,12 +42,12 @@ public class BoardService {
         this.boardRepository.save(board);
     }
 
-    public Board getBoard(Long id) {
-        Optional<Board> question = this.boardRepository.findById(id);
-        if (question.isPresent()) {
-            return question.get();
+    public Board getBoard(Integer id) {
+        Optional <Board> board = this.boardRepository.findById(id);
+        if (board.isPresent()) {
+            return board.get();
         } else {
-            throw new DataNotFoundException("question not found");
+            throw new DataNotFoundException("board not found");
         }
     }
 
