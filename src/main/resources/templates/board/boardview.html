@@ -21,10 +21,7 @@
 문의자 연락처 :<div th:text="${board.goeUserPhone}"></div>
 문의 내용 :<div th:text="${board.goeHelpContent}"></div>
 
-<form th:action="@{|/answer/create/${question.id}|}" method="post">
-    <textarea name="content" id="content" rows="15"></textarea>
-    <input type="submit" value="답변등록">
-</form>
+
 
 <a th:href="@{/board/list}"><button type="button" value="cancel">목록</button> </a>
 
