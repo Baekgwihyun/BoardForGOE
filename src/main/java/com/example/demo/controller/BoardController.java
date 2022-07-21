@@ -62,6 +62,9 @@ public class BoardController {
     @RequestMapping("/list")
     public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
         Page<Board> paging = this.boardService.getList(page);
+
+
+
         model.addAttribute("paging", paging);
         List<Board> boards = boardRepository.findAll();
         model.addAttribute("boards", boards);

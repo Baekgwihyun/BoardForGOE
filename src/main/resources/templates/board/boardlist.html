@@ -64,6 +64,12 @@
 
     <button><a href="http://localhost:8080/board/excel/download" class="btn btn-primary">Excel다운로드</a></button>
 
+<!-- 검색 -->
+    <form th:action="@{/board/searchKeyword}" method="get">
+        <input type="text" name="searchKeyword"/>
+        <button type="submit">검색</button>
+    </form>
+
 </div>
 
 <dialog id="favDialog">

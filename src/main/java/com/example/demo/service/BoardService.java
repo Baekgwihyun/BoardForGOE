@@ -21,7 +21,7 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
-    public Page<Board> getList(int page) {
+    public Page<Board> getList(int page ) {
         Pageable pageable = PageRequest.of(page, 5);
 
         log.debug("pageable{}"+ pageable);
@@ -51,19 +51,11 @@ public class BoardService {
         }
     }
 
+//    public Page<Board> boardSearchList(String searchKeyword,Pageable pageable){
+//        return boardRepository.findByGoeTitleContaining(searchKeyword,pageable);
+//    }
+
 }
-    /*public void list(String goeUserName, String goeUserPhone ,String goeTitle
-            , String goeSchoolName,String goeHelpContent) {
-        Board board = new Board();
-        board.setGoeUserName(goeUserName);
-        board.setGoeUserPhone(goeUserPhone);
-        board.setGoeTitle(goeTitle);
-        board.setGoeSchoolName(goeSchoolName);
-        board.setGoeHelpContent(goeHelpContent);
-        board.setGoeHelpDate(LocalDateTime.now());
-        log.debug("boards{}"+ board );
-        this.boardRepository.save(board);
-    }*/
 
 
 

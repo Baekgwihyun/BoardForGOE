@@ -67,6 +67,7 @@ public class ExcelFileServiceImpl extends ExcelFileService {
                 dataRow.createCell(3).setCellValue(contacts.get(i).getGoeHelpContent());
                 dataRow.createCell(4).setCellValue(contacts.get(i).getGoeUserPhone());
             }
+            logger.debug("contacts{}"+contacts.toString());
 
             // Making size of column auto resize to fit with data
             sheet.autoSizeColumn(0);

@@ -14,6 +14,7 @@ public interface BoardRepository extends JpaRepository <Board, Long>{
     Board findByGoeTitleAndGoeHelpContent(String goe_title, String goe_help_content);
     List<Board> findByGoeTitle(String goe_title);
     Page<Board> findAll(Pageable pageable);
+    Optional<Board> findById(Integer id);
+  //Page<Board> findByGoeTitleContaining(String searchKeyword,Pageable pageable);
 
-  Optional<Board> findById(Integer id);
 }
