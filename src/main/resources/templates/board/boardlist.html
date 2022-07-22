@@ -10,7 +10,7 @@
 <body>
 <div class="container">
     <h2>경기도교육청 문의</h2>
-    <div>총 건수 : <span th:text="${#lists.size(boards)}"></span></div>
+    <div>총 건수 : <span th:text="${#lists.size(totalBoardsCount)}"></span></div>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -31,6 +31,9 @@
             <td >백귀현</td>
         </tr>
     </table>
+
+
+
     <!-- 페이징처리 시작 -->
     <div th:if="${!paging.isEmpty()}">
         <ul class="pagination justify-content-center">
@@ -58,6 +61,7 @@
 
 
 
+
     <div class="text-right">
         <button type="button" class="btn btn-primary" id="updateDetails">문의 등록</button>
     </div>
@@ -65,8 +69,9 @@
     <button><a href="http://localhost:8080/board/excel/download" class="btn btn-primary">Excel다운로드</a></button>
 
 <!-- 검색 -->
-    <form th:action="@{/board/searchKeyword}" method="get">
-        <input type="text" name="searchKeyword"/>
+
+    <form th:action="@{/board/list}" method="get">
+        <input type="text" id="searchKeyword" name="searchKeyword"/>
         <button type="submit">검색</button>
     </form>
 

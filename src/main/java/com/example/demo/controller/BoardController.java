@@ -16,6 +16,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -49,32 +51,25 @@ public class BoardController {
 
 
 
-   /* @RequestMapping("/list")
-    public String list(Model model) {
-        List<Board> boards = boardRepository.findAll();
-        model.addAttribute("boards", boards);
+    @GetMapping("/list")
+    public String list(Model model,  @RequestParam(value = "page", defaultValue = "0")int page,
+                      @RequestParam(required = false,defaultValue = "") String searchKeyword,Pageable pageable) {
 
-        log.debug("boards{}"+ boards );
-        return "board/boardlist";
-    }*/
-
-
-    @RequestMapping("/list")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
-        Page<Board> paging = this.boardService.getList(page);
+        Page<Board> paging = boardService.getList(page);
+        List<Board> totalBoardsCount = boardRepository.findAll();
+        Page<Board> boards= boardRepository.findByGoeTitleContainingOrGoeUserNameContaining(searchKeyword,searchKeyword, pageable);
 
 
-
+        model.addAttribute("totalBoardsCount", totalBoardsCount);
         model.addAttribute("paging", paging);
-        List<Board> boards = boardRepository.findAll();
         model.addAttribute("boards", boards);
-
-        System.out.println("paging" + paging);
-        log.debug("boards{}" + paging);
+       log.debug("boards{}"+ boards );
+        log.debug("paging{}"+ paging );
         return "board/boardlist";
-
-
     }
+
+
+
 
 
     // 게시글 작성
@@ -89,15 +84,6 @@ public class BoardController {
     }
 
 
-    // 게시판 상세
-    //@RequestMapping(value = "/board/boardview/{id}")
-    /*@GetMapping(value = "/board/boardview/{id}")
-    public String boardView(Model model, @RequestParam Long id) {
-        log.debug(id.toString());
-        //Board board = this.boardService.getBoard(id);
-        //model.addAttribute("board", board);
-        return "board/boardview";
-    }*/
 
     @RequestMapping(value = "/boardview/{id}")
     public String boardView(Model model, @PathVariable("id") Integer id) {
@@ -118,6 +104,19 @@ public class BoardController {
         response.setHeader("Content-Disposition", "attachment; filename=contacts.xlsx");
         IOUtils.copy(byteArrayInputStream, response.getOutputStream());
     }
+
+
+//    @GetMapping("/searchKeywordList")
+//    public String searchKeywordList(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+//                                    @RequestParam(value = "kw", defaultValue = "") String searchKeyword) {
+//        Page<Board> paging = this.boardService.getList(page, searchKeyword);
+//        model.addAttribute("paging", paging);
+//        model.addAttribute("kw", searchKeyword);
+//
+//        return "board/boardlist";
+//    }
+
+
 }
 
 
